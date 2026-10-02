@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Blocker - Management Dashboard</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <img src="../icons/icon48.png" alt="Logo" class="logo">
+        <div>
+          <h1>Site Blocker Dashboard</h1>
+          <p class="subtitle">Manage blocked base URLs, domains, and settings for Edge</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-badge" id="status-badge">
+          <span class="status-dot"></span>
+          <span id="status-text">Protection Active</span>
+        </div>
+        <label class="switch" title="Toggle site blocking">
+          <input type="checkbox" id="master-toggle" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </header>
+
+    <!-- Stat Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-title">Blocked Domains</div>
+        <div class="stat-value" id="stat-count">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">Total Intercepts</div>
+        <div class="stat-value" id="stat-redirects">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">Protection Status</div>
+        <div class="stat-value text-green" id="stat-status">ENABLED</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="card">
+      <h2>Add Base URLs or Domains</h2>
+      <p class="card-desc">Enter individual domain names, base URLs, or paste multiple domains (one per line):</p>
+      
+      <form id="add-form" class="add-container">
+        <textarea id="domain-input" placeholder="e.g. facebook.com&#10;twitter.com&#10;reddit.com/r/news" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary">Add Base URLs</button>
+      </form>
+      <div id="alert-message" class="alert-message"></div>
+    </div>
+
+    <!-- Blocked Sites Table -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Blocked Base URLs (<span id="table-count">0</span>)</h2>
+        <div class="table-tools">
+          <input type="text" id="search-input" placeholder="Search blocked sites..." class="search-input">
+          <button id="btn-export" class="btn btn-secondary btn-sm">Export JSON</button>
+          <button id="btn-import-trigger" class="btn btn-secondary btn-sm">Import JSON</button>
+          <input type="file" id="file-import" accept=".json" style="display: none;">
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="sites-table">
+          <thead>
+            <tr>
+              <th>Base Domain / URL</th>
+              <th>Added Date</th>
+              <th>Times Intercepted</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+        <div id="table-empty" class="table-empty">
+          No blocked sites found.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Math Verification Modal -->
+  <div id="math-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Unblock Verification Challenge</h3>
+        <button id="modal-close" class="btn-icon-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">To unblock <strong id="modal-target-domain" class="text-domain"></strong>, please solve the math problem below:</p>
+        
+        <!-- Anti-Copy Math Canvas & Text Container -->
+        <div class="math-challenge-box no-copy" id="math-box">
+          <canvas id="math-canvas" width="400" height="70"></canvas>
+        </div>
+
+        <form id="math-form" class="math-form">
+          <div class="input-group">
+            <input type="number" id="math-answer-input" placeholder="Enter your answer..." required autocomplete="off">
+            <button type="submit" class="btn btn-primary">Verify & Unblock</button>
+          </div>
+          <div id="math-error" class="math-error" style="display: none;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../utils/url-helper.js"></script>
+  <script src="../qna/md5.js"></script>
+  <script src="../qna/questions.js"></script>
+  <script src="../qna/math-generator.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

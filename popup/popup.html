@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Blocker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <img src="../icons/icon48.png" alt="Icon" class="logo">
+      <h1>Site Blocker</h1>
+    </div>
+    <label class="switch" title="Toggle site blocking active status">
+      <input type="checkbox" id="toggle-master" checked>
+      <span class="slider round"></span>
+    </label>
+  </div>
+
+  <div class="content">
+    <!-- Quick Action for Active Tab -->
+    <div class="quick-action-card">
+      <div class="current-site-info">
+        <span class="label">Current Site:</span>
+        <span class="current-domain" id="current-domain-text">Loading...</span>
+      </div>
+      <button id="btn-block-current" class="btn btn-block-current" disabled>
+        Block Current Site
+      </button>
+    </div>
+
+    <!-- Manual Add Form -->
+    <form id="add-form" class="add-form">
+      <div class="input-group">
+        <input type="text" id="site-input" placeholder="Enter base URL (e.g. twitter.com)" required autocomplete="off">
+        <button type="submit" class="btn btn-add">Add</button>
+      </div>
+      <div id="error-msg" class="error-msg"></div>
+    </form>
+
+    <!-- Blocked List Section (2 Most Recent Sites Only) -->
+    <div class="list-section">
+      <div class="list-header">
+        <span class="list-title">Recent Blocked Sites (<span id="sites-count">0</span>)</span>
+      </div>
+      <ul id="sites-list" class="sites-list">
+        <!-- Dynamic list items (max 2) -->
+      </ul>
+      <div id="empty-state" class="empty-state">
+        No sites blocked yet. Add a base URL above!
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button id="btn-open-options" class="footer-link">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      Dashboard & Options
+    </button>
+  </div>
+
+  <script src="../utils/url-helper.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
