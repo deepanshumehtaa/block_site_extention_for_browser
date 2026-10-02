@@ -1,0 +1,1 @@
+# block_site_extention_for_browser
