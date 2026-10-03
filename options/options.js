@@ -154,17 +154,25 @@ document.addEventListener('DOMContentLoaded', () => {
       currentBlockStats = response.blockStats || {};
 
       masterToggle.checked = isEnabled;
-      
+      const toggleLabel = masterToggle.closest('.switch');
+
       if (isEnabled) {
         statusBadge.className = 'status-badge';
         statusText.textContent = 'Protection Active';
         statStatus.textContent = 'ENABLED';
         statStatus.className = 'stat-value text-green';
+        // Once protection is turned on, hide the toggle button so it cannot be turned off
+        if (toggleLabel) {
+          toggleLabel.style.display = 'none';
+        }
       } else {
         statusBadge.className = 'status-badge disabled';
         statusText.textContent = 'Protection Paused';
         statStatus.textContent = 'DISABLED';
         statStatus.className = 'stat-value text-red';
+        if (toggleLabel) {
+          toggleLabel.style.display = 'inline-block';
+        }
       }
 
       // Stats calculation
