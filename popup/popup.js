@@ -38,7 +38,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     chrome.runtime.sendMessage({ action: 'GET_STATUS' }, (response) => {
       if (!response || !response.success) return;
 
-      masterToggle.checked = response.isEnabled;
+      const isEnabled = response.isEnabled;
+      masterToggle.checked = isEnabled;
+      
+      const toggleLabel = masterToggle.closest('.switch');
+      if (isEnabled && toggleLabel) {
+        // Hide toggle switch once protection is ON so it cannot be turned off
+        toggleLabel.style.display = 'none';
+      } else if (toggleLabel) {
+        toggleLabel.style.display = 'inline-block';
+      }
+
       renderSitesList(response.blockedSites);
 
       // Check if current site is already blocked
